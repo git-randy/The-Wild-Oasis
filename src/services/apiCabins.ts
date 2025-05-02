@@ -83,11 +83,10 @@ export async function uploadCabinImage(
    * @param {string} cacheControl - How long a file is cached by the browser
    * @returns - A promise of a postgresql data object
    */
-  const fullImgPath = `${CABIN_IMG_PATH}${imageName}`;
 
   const { data, error } = await supabase.storage
     .from("cabin-images")
-    .upload(fullImgPath, imageData, {
+    .upload(imageName, imageData, {
       cacheControl,
       upsert,
     });

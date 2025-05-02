@@ -99,7 +99,7 @@ function SignupForm() {
       <FormRow>
         <>
           {/* type is an HTML attribute! */}
-          <Button design="secondary" type="reset" disabled={isPending}>
+          <Button design="secondary" type="reset" disabled={isPending} onClick={reset}>
             Clear Form
           </Button>
           <Button design="primary" disabled={isPending}>

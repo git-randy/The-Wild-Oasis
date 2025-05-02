@@ -72,11 +72,10 @@ export async function uploadAvatar(
    * @param {string} cacheControl - How long a file is cached by the browser
    * @returns - A promise of a postgresql data object
    */
-  const fullImgPath = `${AVATAR_IMG_PATH}${imageName}`;
 
   const { data, error } = await supabase.storage
     .from("avatars")
-    .upload(fullImgPath, imageData, {
+    .upload(imageName, imageData, {
       cacheControl,
       upsert,
     });
@@ -101,7 +100,7 @@ export async function updateUser({password, fullName, avatar}: UpdateArgs) {
     const imageName = avatar.name.replace("/", "");
     fullImgPath = `${AVATAR_IMG_PATH}${imageName}`;
 
-    await uploadAvatar(imageName, avatar)
+    await uploadAvatar(imageName, avatar, true)
   }
 
   const updateData = {

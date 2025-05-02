@@ -20,13 +20,23 @@ function UpdateUserDataForm() {
   const [fullName, setFullName] = useState<string | undefined>(currentFullName);
   const [avatar, setAvatar] = useState<File | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateUser({fullName, avatar})
+    updateUser({fullName, avatar}, {
+      onSuccess: () => {
+        setAvatar(null);
+        (e.target as HTMLFormElement).reset()
+      }
+    })
+  }
+
+  const handleReset = () => {
+    setAvatar(null)
+    setFullName(currentFullName)
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={(e) => handleSubmit(e)}>
       <FormRow label="Email address">
         <Input value={email} disabled />
       </FormRow>
@@ -52,10 +62,10 @@ function UpdateUserDataForm() {
         />
       </FormRow>
       <FormRow>
-        <Button type="reset" design="secondary" disabled={isPending}>
-          Cancel
+        <Button type="reset" design="secondary" disabled={isPending} onClick={handleReset}>
+          Reset
         </Button>
-        <Button disabled={isPending}>Update account</Button>
+        <Button disabled={isPending || fullName === currentFullName && !avatar}>Update account</Button>
       </FormRow>
     </Form>
   );
