@@ -19,11 +19,11 @@ export const formatDistanceFromNow = (dateStr: string) =>
   So we use this trick to remove any time
   */
 
-interface Options {
-  end?: string;
+interface getTodayArgs {
+  end?: boolean;
 }
 
-export const getToday = (options: Options = {}) => {
+export const getToday = (options: getTodayArgs = {}) => {
   const today = new Date();
 
   /* This is necessary to compare with created_at from Supabase, because it is
