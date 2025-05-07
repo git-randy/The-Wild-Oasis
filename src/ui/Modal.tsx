@@ -57,7 +57,7 @@ const Button = styled.button`
 
 type Props = {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  children: ReactElement<unknown>[];
+  children: ReactElement<unknown>[] | ReactElement<unknown>;
   topPosition?: string
 };
 

@@ -7,6 +7,11 @@ import {
 import { PAGE_SIZE } from "../utils/constants";
 import { getBookingsQuery } from "../features/bookings/constants";
 import supabase from "./superbase";
+import { getToday } from "../utils/helpers";
+import {
+  BookingsAfterDateData,
+  StayAPIData,
+} from "../features/dashboard/blueprints";
 
 type QueryArgs = {
   field?: string;
@@ -72,7 +77,7 @@ export async function getBooking(id: string): Promise<BookingAPIData> {
     console.error(error);
     throw new Error(`Booking id '${id}' was not found`);
   }
-  return data as BookingAPIData;
+  return data;
 }
 
 export async function updateBooking(booking: BookingUpdateData) {
@@ -101,57 +106,70 @@ export async function deleteBookingById(id: number) {
   return data;
 }
 
+// Returns all BOOKINGS that are were created after the given date.
+// Useful to get bookings created in the last 30 days, for example.
+export async function getBookingsAfterDate(
+  date: string
+): Promise<BookingsAfterDateData[]> {
+  /**
+   * @param {string} date - An ISO string of a date
+   * @returns {object} - Returns a data object
+   */
 
-// // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
-// export async function getBookingsAfterDate(date) {
-//   const { data, error } = await supabase
-//     .from("bookings")
-//     .select("created_at, totalPrice, extrasPrice")
-//     .gte("created_at", date)
-//     .lte("created_at", getToday({ end: true }));
+  // Get bookings on when they were created
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("created_at, total_price, extras_price")
+    .gte("created_at", date)
+    .lte("created_at", getToday({ end: true }));
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Bookings could not get loaded");
-//   }
+  if (error) {
+    console.error(error);
+    throw new Error(`Could not get bookings after ${date}`);
+  }
 
-//   return data;
-// }
+  return data;
+}
 
-// // Returns all STAYS that are were created after the given date
-// export async function getStaysAfterDate(date) {
-//   const { data, error } = await supabase
-//     .from("bookings")
-//     // .select('*')
-//     .select("*, guests(fullName)")
-//     .gte("startDate", date)
-//     .lte("startDate", getToday());
+// Returns all STAYS that are were created after the given date
+export async function getStaysAfterDate(date: string): Promise<StayAPIData[]> {
+  /**
+   * @param {string} date - An ISO string of a date
+   * @returns {object} - Returns a data object
+   */
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Bookings could not get loaded");
-//   }
+  // Get bookings on when the customer will arrive
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, guests(full_name)")
+    .gte("start_date", date)
+    .lte("start_date", getToday());
 
-//   return data;
-// }
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings could not get loaded");
+  }
 
-// // Activity means that there is a check in or a check out today
-// export async function getStaysTodayActivity() {
-//   const { data, error } = await supabase
-//     .from("bookings")
-//     .select("*, guests(fullName, nationality, countryFlag)")
-//     .or(
-//       `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
-//     )
-//     .order("created_at");
+  return data;
+}
 
-//   // Equivalent to this. But by querying this, we only download the data we actually need, otherwise we would need ALL bookings ever created
-//   // (stay.status === 'unconfirmed' && isToday(new Date(stay.startDate))) ||
-//   // (stay.status === 'checked-in' && isToday(new Date(stay.endDate)))
+// Activity means that there is a check in or a check out today
+export async function getStaysTodayActivity() {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, guests(full_name, nationality, country_flag)")
+    .or(
+      `and(status.eq.unconfirmed,start_date.eq.${getToday()}),and(status.eq.checked-in,end_date.eq.${getToday()})`
+    )
+    .order("created_at");
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Bookings could not get loaded");
-//   }
-//   return data;
-// }
+  // Equivalent to this. But by querying this, we only download the data we actually need, otherwise we would need ALL bookings ever created
+  // (stay.status === 'unconfirmed' && isToday(new Date(stay.startDate))) ||
+  // (stay.status === 'checked-in' && isToday(new Date(stay.endDate)))
+
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings could not get loaded");
+  }
+  return data;
+}

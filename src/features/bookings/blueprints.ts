@@ -14,8 +14,8 @@ export interface BookingAPIData {
   has_breakfast: boolean;
   is_paid: boolean;
   observations: string;
-  guests: GuestAPIData;
-  cabins: CabinAPIData;
+  guests: GuestAPIData | GuestAPIData[];
+  cabins: CabinAPIData | CabinAPIData[];
 }
 
 export interface BookingUpdateData {

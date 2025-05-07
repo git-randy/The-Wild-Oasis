@@ -48,24 +48,27 @@ export const title = (value: string): string => {
    * @param {string} value - A string value
    * @returns {string} - "hello world" => "Hello world"
    */
-  return String(value).charAt(0).toUpperCase() + String(value).slice(1)
-}
+  return String(value).charAt(0).toUpperCase() + String(value).slice(1);
+};
 
 export const appendDuplicateNum = (value: string): string => {
   /**
-   * Append a number to a string literal in parentheses
+   * Append a number to a string in parentheses.
    *
    * @param {string} value - A string value
-   * @returns {string} - Example: testfile(2)
+   * @returns {string} - Example: testfile -> testfile(2)
    */
-  const hasAppendedNum = value.substring(value.indexOf("(") + 1, value.lastIndexOf(")"))
+  const hasAppendedNum = value.substring(
+    value.indexOf("(") + 1,
+    value.lastIndexOf(")")
+  );
 
   if (hasAppendedNum) {
     // Remove existing appended num and increment
-    const newValue = value.replace(/\(\d+\)/, "")
-    const incrementNum = Number(hasAppendedNum) + 1
-    return newValue + `(${incrementNum})`
+    const newValue = value.replace(/\(\d+\)/, "");
+    const incrementNum = Number(hasAppendedNum) + 1;
+    return newValue + `(${incrementNum})`;
   } else {
-    return value + "(2)"
+    return value + "(2)";
   }
-}
+};

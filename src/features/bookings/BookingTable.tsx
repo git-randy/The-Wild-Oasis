@@ -7,15 +7,22 @@ import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 // import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../../utils/constants";
+import { useSearchParams } from "react-router-dom";
 // import { PageURLQuery } from "../../utils/blueprints";
 
 function BookingTable() {
   // const [searchParams] = useSearchParams()
   const { isPending, bookings, count } = useGetBookings();
+  const [ searchParams, setSearchParams ] = useSearchParams()
 
   if (isPending) return <Spinner />;
 
   if (!bookings) return <Empty resourceName="bookings" />;
+
+  if (!searchParams.get("page")) {
+    searchParams.set("page", "1")
+    setSearchParams(searchParams)
+  }
 
   // Client-side pagination if data is small
   // const currentPage = Number(searchParams.get(PageURLQuery.ParamName))

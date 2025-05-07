@@ -20,10 +20,6 @@ function SortBy({ options }: Props) {
   }, [searchParams]);
 
   const currentSort = searchParams.get("sortBy") || options[0].paramValue;
-  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   searchParams.set("sortBy", e.target.value);
-  //   setSearchParams(searchParams);
-  // };
 
   return (
     <Select

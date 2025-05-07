@@ -52,7 +52,7 @@ function Filter({ filterField, options }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    // Set default query params for filter
+    // Set the first filter to be the default
     if (!searchParams.get(filterField)) {
       setSearchParams((params) => {
         params.set(filterField, options[0].paramValue)
@@ -65,7 +65,6 @@ function Filter({ filterField, options }: Props) {
 
   const handleClick = (value: string) => {
     searchParams.set(filterField, value);
-    if (searchParams.get("page") !== "1" ) searchParams.set("page", "1")
     setSearchParams(searchParams);
   };
 
