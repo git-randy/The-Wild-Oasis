@@ -6,7 +6,6 @@ import Stats from "./Stats";
 import { useGetCabins } from "../cabins/useGetCabins";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
-import Today from "../check-in-out/TodayActivity";
 import TodayActivity from "../check-in-out/TodayActivity";
 
 const StyledDashboardLayout = styled.div`
