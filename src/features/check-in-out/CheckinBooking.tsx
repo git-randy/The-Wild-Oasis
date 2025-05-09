@@ -57,7 +57,6 @@ function CheckInBooking() {
     total_price,
     num_guests,
     num_nights,
-    status,
     is_paid,
   } = booking;
 
