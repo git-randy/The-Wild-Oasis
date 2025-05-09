@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
+import useTodayActivity from "./useTodayActivity";
+import Spinner from "../../ui/Spinner";
+import TodayItem from "./TodayItem";
 
 const StyledToday = styled.div`
   /* Box */
@@ -9,12 +12,12 @@ const StyledToday = styled.div`
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
 
-  padding: 3.2rem;
+  padding: 2.0rem;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
   grid-column: 1 / span 2;
-  padding-top: 2.4rem;
+  padding-top: 1.8rem;
 `;
 
 const TodayList = styled.ul`
@@ -36,14 +39,34 @@ const NoActivity = styled.p`
   margin-top: 0.8rem;
 `;
 
-function Today() {
+function TodayActivity() {
+  const { isPending, activities } = useTodayActivity();
+
+  console.log(activities)
+
+  const generateTodayList = () => {
+    if (activities && activities.length > 0) {
+      return (
+      <TodayList>
+        {activities.map((activity) => (
+          <TodayItem key={activity.id} activity={activity}/>
+        ))}
+      </TodayList>
+    );
+    } else {
+      return <NoActivity>No activity today...</NoActivity>;
+    }
+  };
+
   return (
     <StyledToday>
       <Row type="horizontal">
         <Heading as="h2">Today</Heading>
       </Row>
+
+      {!isPending ? generateTodayList() : <Spinner />}
     </StyledToday>
   );
 }
 
-export default Today;
+export default TodayActivity;

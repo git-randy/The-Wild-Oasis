@@ -12,6 +12,7 @@ import {
   BookingsAfterDateData,
   StayAPIData,
 } from "../features/dashboard/blueprints";
+import { ActivityAPIData } from "../features/check-in-out/blueprints";
 
 type QueryArgs = {
   field?: string;
@@ -154,7 +155,7 @@ export async function getStaysAfterDate(date: string): Promise<StayAPIData[]> {
 }
 
 // Activity means that there is a check in or a check out today
-export async function getStaysTodayActivity() {
+export async function getStaysTodayActivity(): Promise<ActivityAPIData[]> {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, guests(full_name, nationality, country_flag)")

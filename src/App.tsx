@@ -92,3 +92,102 @@ function App() {
 }
 
 export default App;
+
+// function ErrorBoundaryLayout() {
+//   return (
+//     <ErrorBoundary
+//       FallbackComponent={ErrorFallback}
+//       onReset={() => window.location.replace("/")}
+//     >
+//       <Outlet />
+//     </ErrorBoundary>
+//   );
+// }
+
+// const router = createBrowserRouter([
+//   {
+//     element: <ErrorBoundaryLayout />,
+//     children: [
+//       {
+//         element: (
+//           <ProtectedRoute>
+//             <AppLayout />
+//           </ProtectedRoute>
+//         ),
+//         children: [
+//           {
+//             index: true,
+//             element: <Navigate to="/dashboard" replace />,
+//           },
+//           {
+//             path: "dashboard",
+//             element: <Dashboard />,
+//           },
+//           {
+//             path: "bookings",
+//             element: <Bookings />,
+//           },
+//           {
+//             path: "bookings/:bookingId",
+//             element: <Booking />,
+//           },
+//           {
+//             path: "checkin/:bookingId",
+//             element: <Checkin />,
+//           },
+//           {
+//             path: "cabins",
+//             element: <Cabins />,
+//           },
+//           {
+//             path: "users",
+//             element: <Users />,
+//           },
+//           {
+//             path: "settings",
+//             element: <Settings />,
+//           },
+//           {
+//             path: "account",
+//             element: <Account />,
+//           },
+//         ],
+//       },
+
+//       {
+//         path: "login",
+//         element: <Login />,
+//       },
+//       {
+//         path: "*",
+//         element: <PageNotFound />,
+//       },
+//     ],
+//   },
+// ]);
+
+
+// Also if your RouterProvider is placed below the GlobalStyles
+
+// <DarkModeProvider>
+//       <QueryClientProvider client={queryClient}>
+//         <ReactQueryDevtools initialIsOpen={false} />
+//         <GlobalStyles />
+//         <RouterProvider router={router} />
+// then no need to include GlobalStyles again in ErrorFallback component
+
+// function ErrorFallback({ error, resetErrorBoundary }) {
+//   return (
+//     <>
+//       <StyledErrorFallback>
+//         <Box>
+//           <Heading as="h1">Something went wrong 🧐</Heading>
+//           <p>{error.message}</p>
+//           <Button $size="large" onClick={resetErrorBoundary}>
+//             Try Again
+//           </Button>
+//         </Box>
+//       </StyledErrorFallback>
+//     </>
+//   );
+// }

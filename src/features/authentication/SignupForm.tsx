@@ -14,8 +14,6 @@ function SignupForm() {
   const { isPending, signUp } = useSignUp();
 
   const onSubmit = (data: object) => {
-    console.log(data);
-
     signUp(data as signUpFormData, {onSettled: () => reset()});
   };
 

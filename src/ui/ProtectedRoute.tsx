@@ -18,7 +18,6 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   // 1. Load the authenticated user
   const { isPending, isAuthenticated, user } = useGetUser();
 
-  console.log(`User role: ${user?.role}`)
   // 2. Redirect to login page if user is not authenticated
   useEffect(() => {
     if (!isAuthenticated && !isPending) {

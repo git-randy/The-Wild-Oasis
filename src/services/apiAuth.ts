@@ -10,7 +10,6 @@ type SignUpArgs = {
 };
 
 export async function signUp({ email, password, fullName }: SignUpArgs) {
-  console.log(fullName, email, password)
   const { data, error } = await supabase.auth.signUp({
     email,
     password,

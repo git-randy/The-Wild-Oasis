@@ -14,6 +14,7 @@ import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import { useCheckOut } from "../check-in-out/useCheckOut";
 import { BookingStatusColor } from "./blueprints";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ function BookingDetail() {
   if (isPending) return <Spinner />;
 
   if (!booking) {
-    return <div>No booking can be found</div>;
+    return <Empty resourceName="booking"/>
   }
 
   const status = booking.status;
