@@ -12,7 +12,6 @@ export function useLogin () {
     onSuccess: (data) => {
 
       // Manually set data for query
-      console.log(`Manually setting user query data: ${data.user}`)
       queryClient.setQueryData(["user"], data.user)
       navigate("/dashboard", {replace: true})
     },
