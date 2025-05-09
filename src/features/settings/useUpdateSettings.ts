@@ -9,7 +9,7 @@ export function useEditSettings() {
     mutationFn: updateSetting,
     onSuccess: () => {
       toast.success("Settings updated successfully");
-      // Invalidate cabins query so react query can fetch up-to-date data after inserting
+      // Invalidate settings query so react query can fetch up-to-date data
       queryClient.invalidateQueries({
         queryKey: ["settings"],
       });

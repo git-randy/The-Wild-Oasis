@@ -42,8 +42,6 @@ const NoActivity = styled.p`
 function TodayActivity() {
   const { isPending, activities } = useTodayActivity();
 
-  console.log(activities)
-
   const generateTodayList = () => {
     if (activities && activities.length > 0) {
       return (

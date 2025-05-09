@@ -57,11 +57,9 @@ function CheckInBooking() {
     total_price,
     num_guests,
     num_nights,
-    status,
     is_paid,
   } = booking;
 
-  console.log(status);
   const totalBreakfastPrice =
     settings.breakfast_price * num_guests * num_nights;
 
