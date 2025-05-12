@@ -18,12 +18,13 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   // 1. Load the authenticated user
   const { isPending, isAuthenticated } = useGetUser();
 
+
   // 2. Redirect to login page if user is not authenticated
   useEffect(() => {
     if (!isAuthenticated && !isPending) {
       navigate("/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, isPending]);
 
   // 3. While loading, show a spinner
   if (isPending) {
