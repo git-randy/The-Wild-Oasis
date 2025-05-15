@@ -4,7 +4,7 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { SubmitErrorHandler, useForm } from "react-hook-form";
-import { CabinAPIData, CabinFormData, EditCabinData } from "../../utils/blueprints";
+import { CabinAPIData, CabinFormData, EditCabinData } from "./blueprints";
 import FormRow from "../../ui/FormRow";
 import toast from "react-hot-toast";
 import FormButtonRow from "../../ui/FormButtonRow";

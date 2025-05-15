@@ -9,7 +9,7 @@ const borderColor: Record<string, string> = {
   black: "var(--color-grey-700)",
 };
 
-const StyledSelect = styled.select<StyledSelectProps>`
+const Select = styled.select<StyledSelectProps>`
   font-size: 1.4rem;
   padding: 0.8rem 1.2rem;
   border: 1px solid
@@ -18,28 +18,7 @@ const StyledSelect = styled.select<StyledSelectProps>`
   background-color: var(--color-grey-0);
   font-weight: 500;
   box-shadow: var(--shadow-sm);
+  width: 100%;
 `;
-
-type Props = {
-  options: { label: string; paramValue: string }[];
-  value: string;
-  onChange: (arg0: React.ChangeEvent<HTMLSelectElement>) => void;
-  type?: string;
-  // Accept all native <select> attributes in ...rest
-};
-
-function Select({ options, value, onChange, ...rest }: Props) {
-  return (
-    <>
-      <StyledSelect type="white" value={value} onChange={onChange} {...rest}>
-        {options.map((option) => (
-          <option key={option.paramValue} value={option.paramValue}>
-            {option.label}
-          </option>
-        ))}
-      </StyledSelect>
-    </>
-  );
-}
 
 export default Select;

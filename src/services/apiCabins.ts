@@ -1,14 +1,15 @@
 import supabase, { supabaseImgRootPath } from "./superbase";
+import { title } from "../utils/helpers";
 import {
+  CabinAPIData,
   AddNewCabinData,
   CabinInsertData,
   EditCabinData,
-} from "../utils/blueprints";
-import { title } from "../utils/helpers";
+} from "../features/cabins/blueprints";
 
 const CABIN_IMG_PATH = `${supabaseImgRootPath}/cabin-images//`;
 
-export async function getCabins() {
+export async function getCabins(): Promise<CabinAPIData[]> {
   const { data, error } = await supabase.from("cabins").select("*");
 
   if (error) {
@@ -49,9 +50,7 @@ export async function addNewCabin(cabin: AddNewCabinData) {
 
   if (error) {
     console.error(error);
-    throw new Error(
-      `Unable to add new Cabin. ${title(error.message)}`
-    );
+    throw new Error(`Unable to add new Cabin. ${title(error.message)}`);
   }
 
   return data;
@@ -62,9 +61,7 @@ export async function copyCabin(cabin: CabinInsertData) {
 
   if (error) {
     console.error(error);
-    throw new Error(
-      `Unable to duplicate cabin. ${title(error.message)}`
-    );
+    throw new Error(`Unable to duplicate cabin. ${title(error.message)}`);
   }
 
   return data;

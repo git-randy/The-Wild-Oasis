@@ -5,8 +5,7 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSignUp } from "./useSignUp";
 import { signUpFormData } from "./blueprints";
-
-// Email regex: /\S+@\S+\.\S+/
+import { EMAIL_REGEX } from "../../utils/constants";
 
 function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
@@ -45,7 +44,7 @@ function SignupForm() {
             {...register("email", {
               required: "This field is required",
               pattern: {
-                value: /\S+@\S+\.\S+/,
+                value: EMAIL_REGEX,
                 message: "Please enter a valid email address",
               },
             })}

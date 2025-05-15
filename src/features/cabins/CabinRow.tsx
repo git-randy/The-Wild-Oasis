@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CabinAPIData } from "../../utils/blueprints";
+import { CabinAPIData } from "./blueprints";
 import { appendDuplicateNum, formatCurrency } from "../../utils/helpers";
 import Button from "../../ui/Button";
 import { useState } from "react";
