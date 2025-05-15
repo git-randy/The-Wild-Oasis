@@ -1,4 +1,5 @@
-import { CabinAPIData, GuestAPIData } from "../../utils/blueprints";
+import { CabinAPIData } from "../cabins/blueprints"
+import { GuestAPIData } from "../../utils/blueprints";
 
 export interface BookingAPIData {
   id: number;

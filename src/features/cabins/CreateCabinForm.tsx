@@ -4,7 +4,7 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { SubmitErrorHandler, useForm } from "react-hook-form";
-import { CabinFormData, AddNewCabinData } from "../../utils/blueprints";
+import { CabinFormData, AddNewCabinData } from "./blueprints";
 import FormRow from "../../ui/FormRow";
 import toast from "react-hot-toast";
 import FormButtonRow from "../../ui/FormButtonRow";
@@ -154,7 +154,7 @@ function CreateCabinForm() {
       </FormRow>
       <FormButtonRow>
         <Button
-          type="reset"
+          type="button"
           size="small"
           onClick={() => setIsModalVisible(false)}
           disabled={isPending}
