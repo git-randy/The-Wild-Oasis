@@ -34,10 +34,10 @@ export enum CabinSort {
 
 export interface GuestAPIData {
   id: number;
-  created_at?: Date;
+  created_at: Date;
   full_name: string;
   email: string;
-  national_id?: string;
-  nationality?: string;
-  country_flag?: string;
+  national_id: string;
+  nationality: string;
+  country_flag: string;
 }

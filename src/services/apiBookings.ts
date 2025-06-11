@@ -3,6 +3,7 @@ import {
   BookingAPIData,
   BookingUpdateData,
   GetBookingsResponse,
+  NewBookingData,
 } from "../features/bookings/blueprints";
 import { PAGE_SIZE } from "../utils/constants";
 import { getBookingsQuery } from "../features/bookings/constants";
@@ -79,6 +80,14 @@ export async function getBooking(id: string): Promise<BookingAPIData> {
     throw new Error(`Booking id '${id}' was not found`);
   }
   return data;
+}
+
+export async function addBooking(booking: NewBookingData) {
+  const { data, error } = await supabase.from("bookings").insert(booking)
+
+  if (error) throw new Error("Unable to add new booking")
+
+  return data
 }
 
 export async function updateBooking(booking: BookingUpdateData) {
@@ -164,7 +173,8 @@ export async function getStaysTodayActivity(): Promise<ActivityAPIData[]> {
     )
     .order("created_at");
 
-  // Equivalent to this. But by querying this, we only download the data we actually need, otherwise we would need ALL bookings ever created
+  // Equivalent to this. But by querying this, we only download the data we actually
+  // need, otherwise we would need ALL bookings ever created
   // (stay.status === 'unconfirmed' && isToday(new Date(stay.startDate))) ||
   // (stay.status === 'checked-in' && isToday(new Date(stay.endDate)))
 
@@ -173,4 +183,17 @@ export async function getStaysTodayActivity(): Promise<ActivityAPIData[]> {
     throw new Error("Bookings could not get loaded");
   }
   return data;
+}
+
+export async function getBookingsByCabinId(id: number | string) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("start_date, end_date")
+    .eq("cabin_id", id);
+
+  if (error) {
+    console.error(error)
+    throw new Error(`Bookings could not be retreived for cabin id: ${id}`)
+  }
+  return data
 }

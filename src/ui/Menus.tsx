@@ -1,4 +1,9 @@
-import React, { createContext, ReactElement, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactElement,
+  useContext,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
@@ -89,8 +94,8 @@ const MenusContext = createContext<MenusContextType>({
   openId: "",
   close: () => {},
   open: () => {},
-  position: {x: 0, y: 0},
-  setPosition: () => {}
+  position: { x: 0, y: 0 },
+  setPosition: () => {},
 });
 
 function Menus({ children }: { children: React.ReactNode }) {
@@ -109,11 +114,17 @@ function Menus({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Toggle({ id, icon=undefined }: { id: string, icon?:ReactElement | undefined }) {
+function Toggle({
+  id,
+  icon = undefined,
+}: {
+  id: string;
+  icon?: ReactElement | undefined;
+}) {
   const context = useContext(MenusContext);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation()
+    e.stopPropagation();
     const rect = (e.target as HTMLElement)
       .closest("button")
       ?.getBoundingClientRect();
@@ -129,12 +140,10 @@ function Toggle({ id, icon=undefined }: { id: string, icon?:ReactElement | undef
     }
   };
 
-  const displayedIcon = icon ? icon : <HiEllipsisVertical/>
+  const displayedIcon = icon ? icon : <HiEllipsisVertical />;
 
   return (
-    <StyledToggle onClick={(e) => handleClick(e)}>
-      {displayedIcon}
-    </StyledToggle>
+    <StyledToggle onClick={(e) => handleClick(e)}>{displayedIcon}</StyledToggle>
   );
 }
 
@@ -167,7 +176,13 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-function Button({ icon = undefined, onClick, bgColor, disabled, children }: ButtonProps) {
+function Button({
+  icon = undefined,
+  onClick,
+  bgColor,
+  disabled,
+  children,
+}: ButtonProps) {
   const context = useContext(MenusContext);
 
   const handleClick = () => {
@@ -179,7 +194,12 @@ function Button({ icon = undefined, onClick, bgColor, disabled, children }: Butt
 
   return (
     <li>
-      <StyledButton onClick={handleClick} bgColor={bgColor} disabled={disabled}>
+      <StyledButton
+        onClick={handleClick}
+        bgColor={bgColor}
+        disabled={disabled}
+        type="button"
+      >
         {icon && icon}
         <span>{children}</span>
       </StyledButton>

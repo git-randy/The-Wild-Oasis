@@ -120,3 +120,38 @@ export async function updateCabin(cabin: EditCabinData) {
 
   return data;
 }
+
+export async function getAvailableCabins(
+  startDate: string,
+  endDate: string
+): Promise<CabinAPIData[]> {
+  /**
+   * Get cabins that do not have any bookings that overlap with
+   * the given date range
+   * @param {string} startDate - ISO string (2025-01-01T00:00:00.000Z)
+   * @param {string} endDate - ISO string (2025-01-02T00:00:00.000Z)
+   * @returns {CabinAPIData[]}
+   */
+  const { data: cabinsThatOverlap, error: bookingsError } = await supabase
+    .from("bookings")
+    .select("id, cabin_id")
+    .or(
+      `and(start_date.lte.${startDate},end_date.gte.${startDate}),and(start_date.lte.${endDate},end_date.gte.${endDate})`
+    );
+
+  if (bookingsError)
+    throw new Error("Could not retrieve bookings in date range");
+
+  const cabinIds = cabinsThatOverlap.map((cabin) => cabin.cabin_id);
+  // Use raw PostgREST syntax for filter values. E.g. (70,71)
+  const cabinsToExclude = cabinIds.join(",");
+
+  const { data: availableCabins, error: cabinsError } = await supabase
+    .from("cabins")
+    .select("*")
+    .order("name", { ascending: true })
+    .not("id", "in", `(${cabinsToExclude})`);
+
+  if (cabinsError) throw new Error("Could not get Cabins");
+  return availableCabins;
+}

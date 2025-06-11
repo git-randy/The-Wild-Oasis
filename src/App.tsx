@@ -24,6 +24,9 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./ui/ErrorFallback";
+import "react-datepicker/dist/react-datepicker.css"
+import "./index.css"
+import NewBooking from "./pages/NewBooking";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,7 +47,7 @@ function GlobalToaster() {
           duration: 3000,
         },
         error: {
-          duration: 5000,
+          duration: 6000,
         },
         style: {
           fontSize: "16px",
@@ -112,6 +115,10 @@ const router = createBrowserRouter(
             {
               path: `bookings/:${bookingIdParam}`,
               element: <Booking />,
+            },
+            {
+              path: 'newbooking',
+              element: <NewBooking/>
             },
             {
               path: `checkin/:${bookingIdParam}`,
