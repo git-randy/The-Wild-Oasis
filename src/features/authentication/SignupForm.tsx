@@ -13,7 +13,7 @@ function SignupForm() {
   const { isPending, signUp } = useSignUp();
 
   const onSubmit = (data: object) => {
-    signUp(data as signUpFormData, {onSettled: () => reset()});
+    signUp(data as signUpFormData, { onSettled: () => reset() });
   };
 
   return (
@@ -71,7 +71,6 @@ function SignupForm() {
           />
         </>
       </FormRow>
-
       <FormRow
         label="Repeat password"
         error={errors.passwordConfirm && String(errors.passwordConfirm.message)}
@@ -96,7 +95,12 @@ function SignupForm() {
       <FormRow>
         <>
           {/* type is an HTML attribute! */}
-          <Button design="secondary" type="reset" disabled={isPending} onClick={reset}>
+          <Button
+            design="secondary"
+            type="reset"
+            disabled={isPending}
+            onClick={reset}
+          >
             Clear Form
           </Button>
           <Button design="primary" disabled={isPending}>

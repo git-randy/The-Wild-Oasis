@@ -5,7 +5,7 @@ import { differenceInDays } from "date-fns";
 (which come from Supabase)
 */
 export const subtractDates = (dateStr1: string, dateStr2: string) =>
-  differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
+  differenceInDays(parseISO(dateStr1), parseISO(dateStr2));
 
 export const formatDistanceFromNow = (dateStr: string) =>
   formatDistance(parseISO(dateStr), new Date(), {
@@ -37,8 +37,8 @@ export const getToday = (options: getTodayArgs = {}) => {
   return today.toISOString();
 };
 
-export const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
+export const formatCurrency = (value: number, format="en") =>
+  new Intl.NumberFormat(format, { style: "currency", currency: "USD" }).format(
     value
   );
 

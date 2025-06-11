@@ -84,6 +84,7 @@ function CabinRow({ cabin }: { cabin: CabinAPIData }) {
           <Button
             design="edit"
             size="medium"
+            type="button"
             disabled={isCopying || isDeleting}
             onClick={() => setShowEditForm(!showEditForm)}
           >

@@ -6,7 +6,8 @@ import styled, { css } from "styled-components";
 */
 
 interface Props {
-  spinbutton?: "false";
+  spinbutton?: string;
+  textAlign?: string;
 }
 
 const Input = styled.input<Props>`
@@ -16,6 +17,9 @@ const Input = styled.input<Props>`
   padding: 0.8rem 1.2rem;
   box-shadow: (var(--shadow-sm));
   width: 100%;
+  ${(props) => props.textAlign && css`
+    text-align: ${props.textAlign}
+  `}
   ${(props) =>
     props.spinbutton === "false" &&
     css`

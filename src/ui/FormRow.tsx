@@ -4,6 +4,7 @@ import Error from "../ui/Error";
 
 type StyledFormRowProps = {
   gridTemplateColumns?: string;
+  noButtonEnd?: boolean;
 };
 
 const StyledFormRow = styled.div<StyledFormRowProps>`
@@ -16,11 +17,10 @@ const StyledFormRow = styled.div<StyledFormRowProps>`
           grid-template-columns: ${props.gridTemplateColumns};
         `
       : css`
-          grid-template-columns: 24rem 1.5fr 1.2fr;
+          grid-template-columns: 1.2fr 1.5fr 1.2fr;
         `}
 
-  gap: 0;
-
+  gap: 0.7rem;
   padding: 1.2rem 0;
 
   &:first-child {
@@ -35,11 +35,15 @@ const StyledFormRow = styled.div<StyledFormRowProps>`
     border-bottom: 1px solid var(--color-grey-100);
   }
 
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
+  ${(props) =>
+    !props.noButtonEnd &&
+    css`
+      &:has(button) {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1.2rem;
+      }
+    `}
 `;
 
 const Label = styled.label`

@@ -37,6 +37,44 @@ export interface BookingUpdateData {
   cabins?: CabinAPIData;
 }
 
+export interface NewBookingData {
+  start_date: string;
+  end_date: string;
+  num_nights: number;
+  num_guests: number;
+  cabin_price?: number;
+  extras_price?: number;
+  total_price?: number;
+  status: "unconfirmed" | "checked-in" | "checked-out";
+  has_breakfast: boolean;
+  is_paid: boolean;
+  observations?: string;
+  guest_id: number;
+  cabin_id: number;
+}
+
+export interface GuestsAPIData {
+  id: number;
+  created_at: string;
+  full_name?: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  national_id: number;
+  nationality: string;
+  country_flag: string;
+}
+
+export interface GuestFormData {
+  full_name?: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  national_id?: number;
+  nationality: string;
+  country_flag?: string;
+}
+
 export interface GetBookingsResponse {
   data: BookingAPIData[];
   count: number;
