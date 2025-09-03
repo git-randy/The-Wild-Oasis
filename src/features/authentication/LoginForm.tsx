@@ -5,9 +5,17 @@ import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
+import styled from "styled-components";
+
+const StyledMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+`;
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("guest@guest.com");
   const [password, setPassword] = useState("");
   const { isPending: isLoggingIn, login } = useLogin();
 
@@ -55,6 +63,10 @@ function LoginForm() {
           {!isLoggingIn ? "Login" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
+      <StyledMessage>
+        <p>Password Hint: My full name on my resum&eacute;</p>
+        <p>No spaces, all lowercase</p>
+      </StyledMessage>
     </Form>
   );
 }

@@ -70,6 +70,8 @@ const GlobalStyles = createGlobalStyle`
     --color-green-700: #dcfce7;
     --color-yellow-100: #854d0e;
     --color-yellow-700: #fef9c3;
+    --color-peach-200: #6e562dff;
+    --color-peach-400: #d9c096;
     --color-silver-100: #374151;
     --color-silver-700: #f3f4f6;
     --color-indigo-100: #3730a3;
