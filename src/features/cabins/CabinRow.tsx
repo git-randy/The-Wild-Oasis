@@ -69,7 +69,7 @@ function CabinRow({ cabin }: { cabin: CabinAPIData }) {
   return (
     <>
       <Table.Row
-        editColor={showEditForm ? "var(--color-yellow-300)" : "none"}
+        editColor={showEditForm ? "var(--color-peach-200)" : "none"}
       >
         <Img src={cabin.image} />
         <Cabin>{cabin.name}</Cabin>

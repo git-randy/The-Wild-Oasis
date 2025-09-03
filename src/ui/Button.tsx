@@ -49,11 +49,10 @@ const variations: Record<string, RuleSet<object>> = {
     }
   `,
   edit: css`
-    color: var(--color-grey-600);
-    background-color: var(--color-peach-200);
+    background-color: var(--color-grey-300);
 
   &:hover:enabled {
-    background-color: var(--color-peach-400);
+    background-color: var(--color-grey-400);
   }
 `,
 };
