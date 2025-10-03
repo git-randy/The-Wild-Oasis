@@ -27,7 +27,6 @@ function LoginForm() {
       { email, password },
       {
         onSettled: () => {
-          setEmail("");
           setPassword("");
         },
       }
@@ -64,8 +63,7 @@ function LoginForm() {
         </Button>
       </FormRowVertical>
       <StyledMessage>
-        <p>Password Hint: My full name on my resum&eacute;</p>
-        <p>No spaces, all lowercase</p>
+        <p>Password Hint: bestguest</p>
       </StyledMessage>
     </Form>
   );

@@ -5,6 +5,7 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUpdateUser } from "./useUpdateUser";
+import { useGetUser } from "./useGetUser";
 
 type PasswordFormData = {
   password?: string;
@@ -14,8 +15,10 @@ type PasswordFormData = {
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
-
   const { updateUser, isPending } = useUpdateUser();
+  const { user } = useGetUser();
+
+  const isGuest = user?.email === "guest@guest.com"
 
   const onSubmit: SubmitHandler<PasswordFormData> = ({password}) => {
     updateUser({password}, {onSuccess: () => reset()})
@@ -23,19 +26,26 @@ function UpdatePasswordForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      {isGuest &&
+        <FormRow
+          label="Message"
+        >
+          <p>Password cannot be updated on this account</p>
+        </FormRow>
+      }
       <FormRow
-        label="Password (min 8 characters)"
+        label="Password (min 6 characters)"
         error={errors.password && String(errors?.password?.message)}
       >
         <Input
           type="password"
           id="password"
           autoComplete="current-password"
-          disabled={isPending}
+          disabled={isPending || isGuest}
           {...register("password", {
             required: "This field is required",
             minLength: {
-              value: 8,
+              value: 6,
               message: "Password needs a minimum of 8 characters",
             },
           })}
@@ -50,7 +60,7 @@ function UpdatePasswordForm() {
           type="password"
           autoComplete="new-password"
           id="passwordConfirm"
-          disabled={isPending}
+          disabled={isPending || isGuest}
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
@@ -62,7 +72,7 @@ function UpdatePasswordForm() {
         <Button onClick={reset} type="reset" design="secondary">
           Reset
         </Button>
-        <Button design="primary" disabled={isPending}>Update password</Button>
+        <Button design="primary" disabled={isPending || isGuest}>Update password</Button>
       </FormRow>
     </Form>
   );
