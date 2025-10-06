@@ -63,7 +63,7 @@ function LoginForm() {
         </Button>
       </FormRowVertical>
       <StyledMessage>
-        <p>Password Hint: bestguest</p>
+        <p>Password is bestguest</p>
       </StyledMessage>
     </Form>
   );
