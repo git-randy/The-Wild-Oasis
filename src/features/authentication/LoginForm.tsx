@@ -16,7 +16,7 @@ const StyledMessage = styled.div`
 
 function LoginForm() {
   const [email, setEmail] = useState("guest@guest.com");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("bestguest");
   const { isPending: isLoggingIn, login } = useLogin();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -62,9 +62,6 @@ function LoginForm() {
           {!isLoggingIn ? "Login" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
-      <StyledMessage>
-        <p>Password is bestguest</p>
-      </StyledMessage>
     </Form>
   );
 }
